@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import classes from "../styles/Pages/login.module.scss";
-import Input from "@/components/ui/input/Input";
 import {
   useAuthState,
   useSignInWithEmailAndPassword,
 } from "react-firebase-hooks/auth";
 import { auth } from "@/firebase/config";
 import { useRouter } from "next/router";
+
+import Input from "@/components/ui/input/Input";
+
+import classes from "../styles/Pages/login.module.scss";
 
 export default function Login() {
   const [user] = useAuthState(auth);

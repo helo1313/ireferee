@@ -1,7 +1,5 @@
 import { Inter } from "next/font/google";
 
-import Button from "@/components/ui/button/Button";
-
 import { useRouter } from "next/router";
 import {
   ABOUT_ROUTE,
@@ -11,6 +9,8 @@ import {
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/firebase/config";
 import { useEffect } from "react";
+
+import Button from "@/components/ui/button/Button";
 
 import classes from "../styles/Pages/home.module.scss";
 

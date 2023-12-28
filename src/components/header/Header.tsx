@@ -1,7 +1,4 @@
 import Link from "next/link";
-import Logo from "../logo/Logo";
-
-import Button from "../ui/button/Button";
 import { useRouter } from "next/router";
 import {
   ABOUT_ROUTE,
@@ -12,9 +9,12 @@ import {
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/firebase/config";
+import { signOut } from "firebase/auth";
+
+import Logo from "../logo/Logo";
+import Button from "../ui/button/Button";
 
 import classes from "./header.module.scss";
-import { signOut } from "firebase/auth";
 
 const Header: React.FC = () => {
   const [user] = useAuthState(auth);
