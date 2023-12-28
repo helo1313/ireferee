@@ -1,0 +1,36 @@
+.home {
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mainContainer {
+  width: auto;
+  padding: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    padding: 1rem;
+
+    span {
+      color: var(--color-brand-600);
+    }
+  }
+
+  h3 {
+    color: var(--color-grey-400);
+  }
+}
+
+.buttonContainer {
+  padding: 1rem;
+
+  button {
+    margin: 0 1rem;
+  }
+}

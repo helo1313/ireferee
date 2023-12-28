@@ -1,0 +1,44 @@
+.header {
+  position: fixed;
+  width: 100dvw;
+  height: 64px;
+  display: flex;
+  justify-content: center;
+
+  background-color: var(--color-grey-50);
+}
+
+.content {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 3rem;
+
+  display: flex;
+  align-items: center;
+}
+
+.navigation {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  ul {
+    display: flex;
+    align-items: center;
+  }
+
+  li {
+    margin-left: 2rem;
+  }
+
+  a {
+    color: var(--color-grey-700);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
