@@ -1,0 +1,9 @@
+.optionPicker {
+  display: flex;
+  width: max-content;
+  margin-top: 1rem;
+  padding: 0.2rem 0.2rem;
+  background-color: var(--color-grey-50);
+  border: 1px solid var(--color-grey-200);
+  border-radius: var(--border-radius-lg);
+}

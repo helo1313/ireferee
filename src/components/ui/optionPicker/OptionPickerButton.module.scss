@@ -1,0 +1,13 @@
+.optionButton {
+  padding: 0.5rem 1rem;
+}
+
+.active {
+  color: var(--color-brand-50);
+  background-color: var(--color-brand-600);
+  border-radius: var(--border-radius-lg);
+
+  &:hover {
+    cursor: pointer;
+  }
+}
