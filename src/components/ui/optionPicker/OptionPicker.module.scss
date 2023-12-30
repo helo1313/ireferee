@@ -1,7 +1,15 @@
 .optionPicker {
+  margin-top: 1rem;
+  padding: 0.2rem 0.2rem;
+}
+
+.label {
+  margin-bottom: 0.75rem;
+}
+
+.optionsWrapper {
   display: flex;
   width: max-content;
-  margin-top: 1rem;
   padding: 0.2rem 0.2rem;
   background-color: var(--color-grey-50);
   border: 1px solid var(--color-grey-200);

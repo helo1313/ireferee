@@ -6,7 +6,7 @@ type labelAlignOptions = "left" | "center" | "right" | undefined;
 
 interface InputProps {
   name: string;
-  type: "text" | "password";
+  type: "text" | "password" | "number";
   label: string;
   labelAlign?: labelAlignOptions;
   placeholder: string;
