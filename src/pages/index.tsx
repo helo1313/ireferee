@@ -38,7 +38,7 @@ export default function Home() {
             onClick={() => {
               router.push(SIGN_UP_ROUTE);
             }}
-            type="primary"
+            styleType="primary"
           >
             {" "}
             Sign Up
@@ -47,7 +47,7 @@ export default function Home() {
             onClick={() => {
               router.push(ABOUT_ROUTE);
             }}
-            type="secondary"
+            styleType="secondary"
           >
             {" "}
             About site
@@ -60,7 +60,7 @@ export default function Home() {
             onClick={() => {
               router.push(LOGIN_ROUTE);
             }}
-            type="inline"
+            styleType="inline"
           >
             {" "}
             Login

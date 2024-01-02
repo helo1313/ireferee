@@ -27,7 +27,7 @@ const Header: React.FC = () => {
           onClick={() => {
             router.push(LOGIN_ROUTE);
           }}
-          type="primary"
+          styleType="primary"
         >
           {" "}
           Login
@@ -53,7 +53,7 @@ const Header: React.FC = () => {
             signOut(auth);
             router.push("/");
           }}
-          type="primary"
+          styleType="primary"
         >
           {" "}
           Sign out

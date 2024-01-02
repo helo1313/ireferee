@@ -4,12 +4,17 @@ import { useState } from "react";
 import OptionPicker from "@/components/ui/optionPicker/OptionPicker";
 import StarRating from "@/components/starRating/StarRating";
 import CardsPicker from "@/components/cardsPicker/cartsPicker";
+import Textarea from "@/components/ui/textarea/Textarea";
 
 export default function NewMatch() {
   const [test, setTest] = useState("");
 
+  const SubmitMatch = (event: React.SyntheticEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  };
+
   return (
-    <div className={classes.newMatch}>
+    <form className={classes.newMatch} onSubmit={SubmitMatch}>
       <h2>Add match</h2>
 
       <h4>General</h4>
@@ -112,7 +117,12 @@ export default function NewMatch() {
           setValue={setTest}
           error={test}
         />
+
+        <Textarea label="Describe your performance" />
       </div>
-    </div>
+      <button type="submit" className={classes.submitButton}>
+        Add match
+      </button>
+    </form>
   );
 }
