@@ -5,9 +5,31 @@ import OptionPicker from "@/components/ui/optionPicker/OptionPicker";
 import StarRating from "@/components/starRating/StarRating";
 import CardsPicker from "@/components/cardsPicker/cartsPicker";
 import Textarea from "@/components/ui/textarea/Textarea";
+import useInputState from "@/utils/hooks/useInputState";
 
 export default function NewMatch() {
-  const [test, setTest] = useState("");
+  const [homeTeam, setHomeTeam, homeTeamError, setHomeTeamError] =
+    useInputState();
+  const [awayTeam, setAwayTeam, awayTeamError, setAwayTeamError] =
+    useInputState();
+  const [
+    homeTeamScore,
+    setHomeTeamScore,
+    homeTeamScoreError,
+    setHomeTeamScoreError,
+  ] = useInputState();
+  const [
+    awayTeamScore,
+    setAwayTeamScore,
+    awayTeamScoreError,
+    setAwayTeamScoreError,
+  ] = useInputState();
+  const [
+    distanceCovered,
+    setDistanceCovered,
+    distanceCoveredError,
+    setDistanceCoveredError,
+  ] = useInputState();
 
   const SubmitMatch = (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -26,9 +48,9 @@ export default function NewMatch() {
           label="Home team"
           labelAlign="right"
           placeholder="Enter team name"
-          value={test}
-          setValue={setTest}
-          error={test}
+          value={homeTeam}
+          setValue={setHomeTeam}
+          error={homeTeamError}
         />
         <p> vs </p>
         <Input
@@ -36,9 +58,9 @@ export default function NewMatch() {
           type="text"
           label="Away team"
           placeholder="Enter team name"
-          value={test}
-          setValue={setTest}
-          error={test}
+          value={awayTeam}
+          setValue={setAwayTeam}
+          error={awayTeamError}
         />
       </div>
       <OptionPicker
@@ -84,9 +106,9 @@ export default function NewMatch() {
             label="Home score"
             labelAlign="right"
             placeholder="Enter team score"
-            value={test}
-            setValue={setTest}
-            error={test}
+            value={homeTeamScore}
+            setValue={setHomeTeamScore}
+            error={homeTeamScoreError}
           />
           <p> vs </p>
           <Input
@@ -94,9 +116,9 @@ export default function NewMatch() {
             type="number"
             label="Away score"
             placeholder="Enter team score"
-            value={test}
-            setValue={setTest}
-            error={test}
+            value={awayTeamScore}
+            setValue={setAwayTeamScore}
+            error={awayTeamScoreError}
           />
         </div>
 
@@ -113,9 +135,9 @@ export default function NewMatch() {
           type="number"
           label="Distance covered in km"
           placeholder="Enter distance covered"
-          value={test}
-          setValue={setTest}
-          error={test}
+          value={distanceCovered}
+          setValue={setDistanceCovered}
+          error={distanceCoveredError}
         />
 
         <Textarea label="Describe your performance" />
