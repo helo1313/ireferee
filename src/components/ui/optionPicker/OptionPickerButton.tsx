@@ -2,10 +2,10 @@ import { Dispatch, PropsWithChildren, SetStateAction } from "react";
 import classes from "./OptionPickerButton.module.scss";
 
 interface OptionPickerButtonProps extends PropsWithChildren {
-  id: number;
+  id: string;
   label: string;
   active: boolean;
-  onPick: Dispatch<SetStateAction<number>>;
+  onPick: Dispatch<SetStateAction<string>>;
 }
 
 const OptionPickerButton: React.FC<OptionPickerButtonProps> = (props) => {
@@ -15,6 +15,7 @@ const OptionPickerButton: React.FC<OptionPickerButtonProps> = (props) => {
 
   return (
     <button
+      type="button"
       onClick={onOptionClick}
       className={`${classes.optionButton} ${
         props.active ? classes.active : undefined

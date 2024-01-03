@@ -31,16 +31,37 @@ export default function NewMatch() {
     setDistanceCoveredError,
   ] = useInputState();
 
+  const [status, setStatus] = useState("Planned");
+  const [role, setRole] = useState("Referee");
+  const [ageCategory, setAgeCategory] = useState("Senior");
+  const [competition, setCompetition] = useState("League");
+
+  const validateMatch: () => boolean = () => {
+    let matchIsValid = true;
+
+    if (homeTeam.trim() === "") {
+      matchIsValid = false;
+      setHomeTeamError("Invalid home team name");
+    }
+
+    if (awayTeam.trim() === "") {
+      matchIsValid = false;
+      setAwayTeamError("Invalid away team name");
+    }
+
+    return matchIsValid;
+  };
+
   const SubmitMatch = (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    validateMatch();
   };
 
   return (
     <form className={classes.newMatch} onSubmit={SubmitMatch}>
       <h2>Add match</h2>
-
       <h4>General</h4>
-
       <div className={classes.teams}>
         <Input
           name="Home team"
@@ -65,83 +86,89 @@ export default function NewMatch() {
       </div>
       <OptionPicker
         label="Status"
-        options={[
-          { id: 0, label: "Planned" },
-          { id: 1, label: "Finished" },
-        ]}
+        options={["Planned", "Finished"]}
+        value={status}
+        setValue={setStatus}
       />
-
       <OptionPicker
         label="Role"
-        options={[
-          { id: 0, label: "Referee" },
-          { id: 1, label: "Assistant referee" },
-        ]}
+        options={["Referee", "Assistant referee"]}
+        value={role}
+        setValue={setRole}
       />
-
       <OptionPicker
         label="Age category"
-        options={[
-          { id: 0, label: "Senior" },
-          { id: 1, label: "Junior" },
-        ]}
+        options={["Senior", "Junior"]}
+        value={ageCategory}
+        setValue={setAgeCategory}
       />
-
       <OptionPicker
         label="Competition"
-        options={[
-          { id: 0, label: "League" },
-          { id: 1, label: "Cup" },
-          { id: 2, label: "Friendly" },
-        ]}
+        options={["League", "Cup", "Friendly"]}
+        value={competition}
+        setValue={setCompetition}
       />
 
-      <div className={classes.matchSummary}>
-        <h4 className={classes.section}>Match summary</h4>
+      {status === "Finished" ? (
+        <>
+          <div className={classes.matchSummary}>
+            <h4 className={classes.section}>Match summary</h4>
 
-        <div className={classes.teams}>
-          <Input
-            name="Home score"
-            type="number"
-            label="Home score"
-            labelAlign="right"
-            placeholder="Enter team score"
-            value={homeTeamScore}
-            setValue={setHomeTeamScore}
-            error={homeTeamScoreError}
-          />
-          <p> vs </p>
-          <Input
-            name="Away score"
-            type="number"
-            label="Away score"
-            placeholder="Enter team score"
-            value={awayTeamScore}
-            setValue={setAwayTeamScore}
-            error={awayTeamScoreError}
-          />
-        </div>
+            <div className={classes.teams}>
+              <Input
+                name="Home score"
+                type="number"
+                label="Home score"
+                labelAlign="right"
+                placeholder="Enter team score"
+                value={homeTeamScore}
+                setValue={setHomeTeamScore}
+                error={homeTeamScoreError}
+              />
+              <p> vs </p>
+              <Input
+                name="Away score"
+                type="number"
+                label="Away score"
+                placeholder="Enter team score"
+                value={awayTeamScore}
+                setValue={setAwayTeamScore}
+                error={awayTeamScoreError}
+              />
+            </div>
 
-        <CardsPicker type="yellow-card" label="Yellow cards" />
-        <CardsPicker type="red-card" label="Red cards" />
-      </div>
+            {role === "Referee" && (
+              <>
+                {" "}
+                <CardsPicker type="yellow-card" label="Yellow cards" />
+                <CardsPicker type="red-card" label="Red cards" />
+              </>
+            )}
+          </div>
+          <div className={classes.performance}>
+            <h4 className={classes.section}>Performance</h4>
+            <StarRating label="Overall" />
 
-      <div className={classes.performance}>
-        <h4 className={classes.section}>Performance</h4>
-        <StarRating label="Overall" />
+            <Input
+              name="Distance"
+              type="number"
+              label="Distance covered in km"
+              placeholder="Enter distance covered"
+              value={distanceCovered}
+              setValue={setDistanceCovered}
+              error={distanceCoveredError}
+            />
 
-        <Input
-          name="Distance"
-          type="number"
-          label="Distance covered in km"
-          placeholder="Enter distance covered"
-          value={distanceCovered}
-          setValue={setDistanceCovered}
-          error={distanceCoveredError}
-        />
+            <Textarea label="Describe your performance" />
+          </div>
+        </>
+      ) : (
+        <h4 className={classes.section}>
+          Match summary and performance will be avaiable when match is marked as
+          finished
+        </h4>
+      )}
 
-        <Textarea label="Describe your performance" />
-      </div>
       <button type="submit" className={classes.submitButton}>
         Add match
       </button>
