@@ -15,10 +15,18 @@ import Logo from "../logo/Logo";
 import Button from "../ui/button/Button";
 
 import classes from "./header.module.scss";
+import { useEffect, useState } from "react";
 
 const Header: React.FC = () => {
   const [user] = useAuthState(auth);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    if (user) {
+      setIsLoggedIn(true);
+    }
+  }, [user]);
 
   const loggedOutHeader = (
     <ul>
@@ -51,6 +59,7 @@ const Header: React.FC = () => {
         <Button
           onClick={() => {
             signOut(auth);
+            setIsLoggedIn(false);
             router.push("/");
           }}
           styleType="primary"
@@ -68,7 +77,7 @@ const Header: React.FC = () => {
         <Logo />
 
         <nav className={classes.navigation}>
-          {user ? loggedInHeader : loggedOutHeader}
+          {isLoggedIn ? loggedInHeader : loggedOutHeader}
         </nav>
       </div>
     </div>
