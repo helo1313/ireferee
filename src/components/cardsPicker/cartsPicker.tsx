@@ -1,4 +1,4 @@
-import { PropsWithChildren, useState } from "react";
+import { Dispatch, PropsWithChildren, SetStateAction, useState } from "react";
 import { GiCardJoker } from "react-icons/gi";
 
 import classes from "./cartsPicker.module.scss";
@@ -6,16 +6,17 @@ import classes from "./cartsPicker.module.scss";
 interface cardsPickerProps extends PropsWithChildren {
   label?: string;
   type: "red-card" | "yellow-card";
+  value: number;
+  setValue: Dispatch<SetStateAction<number>>;
 }
 
 const CardsPicker: React.FC<cardsPickerProps> = (props) => {
-  const [currentValue, setCurrentValue] = useState(0);
   const [hoverValue, setHoverValue] = useState<number | undefined>(undefined);
 
   const stars = Array(15).fill(0);
 
   const handleClick: (value: number) => void = (value) => {
-    setCurrentValue(value);
+    props.setValue(value);
   };
 
   const handleMouseOver: (value: number) => void = (newHoverValue) => {
@@ -39,7 +40,7 @@ const CardsPicker: React.FC<cardsPickerProps> = (props) => {
               onMouseOver={() => handleMouseOver(index + 1)}
               onMouseLeave={handleMouseLeave}
               className={
-                (hoverValue || currentValue) > index
+                (hoverValue || props.value) > index
                   ? props.type === "red-card"
                     ? classes.cardRedActive
                     : classes.cardYellowActive

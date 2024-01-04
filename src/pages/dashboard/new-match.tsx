@@ -9,6 +9,7 @@ import useInputState from "@/utils/hooks/useInputState";
 import { auth, db } from "@/firebase/config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { collection, addDoc } from "firebase/firestore";
+import MatchData from "@/utils/interfaces/matchData";
 
 export default function NewMatch() {
   const [homeTeam, setHomeTeam, homeTeamError, setHomeTeamError] =
@@ -39,6 +40,13 @@ export default function NewMatch() {
   const [ageCategory, setAgeCategory] = useState("Senior");
   const [competition, setCompetition] = useState("League");
 
+  const [yellowCards, setYellowCards] = useState(0);
+  const [redCards, setRedCards] = useState(0);
+
+  const [overall, setOverall] = useState(0);
+
+  const [description, setDescription] = useState("");
+
   const [user] = useAuthState(auth);
 
   const validateMatch: () => boolean = () => {
@@ -62,20 +70,33 @@ export default function NewMatch() {
 
     //validateMatch();
 
-    sendMatch();
+    sendMatch({
+      homeTeam: homeTeam,
+      awayTeam: awayTeam,
+      status: status,
+      role: role,
+      ageCategory: ageCategory,
+      competition: competition,
+
+      homeScore: +homeTeamScore,
+      awayScore: +awayTeamScore,
+      yellowCards: yellowCards,
+      redCards: redCards,
+
+      overall: overall,
+      distanceCovered: +distanceCovered,
+      description: description,
+    });
   };
 
-  const sendMatch = async () => {
+  const sendMatch = async (data: MatchData) => {
     if (!user) {
       return;
     }
 
     const matchesCollection = collection(db, user.uid);
 
-    const res = await addDoc(matchesCollection, {
-      homeTeam: "test home team",
-      awayTeam: "test away team",
-    });
+    const res = await addDoc(matchesCollection, data);
 
     console.log(res);
   };
@@ -161,14 +182,24 @@ export default function NewMatch() {
 
             {role === "Referee" && (
               <>
-                <CardsPicker type="yellow-card" label="Yellow cards" />
-                <CardsPicker type="red-card" label="Red cards" />
+                <CardsPicker
+                  type="yellow-card"
+                  label="Yellow cards"
+                  value={yellowCards}
+                  setValue={setYellowCards}
+                />
+                <CardsPicker
+                  type="red-card"
+                  label="Red cards"
+                  value={redCards}
+                  setValue={setRedCards}
+                />
               </>
             )}
           </div>
           <div className={classes.performance}>
             <h4 className={classes.section}>Performance</h4>
-            <StarRating label="Overall" />
+            <StarRating label="Overall" value={overall} setValue={setOverall} />
 
             <Input
               name="Distance"
@@ -180,7 +211,11 @@ export default function NewMatch() {
               error={distanceCoveredError}
             />
 
-            <Textarea label="Describe your performance" />
+            <Textarea
+              label="Describe your performance"
+              value={description}
+              setValue={setDescription}
+            />
           </div>
         </>
       ) : (

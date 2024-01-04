@@ -1,20 +1,21 @@
-import { PropsWithChildren, useState } from "react";
+import { Dispatch, PropsWithChildren, SetStateAction, useState } from "react";
 import { FaStar } from "react-icons/fa";
 
 import classes from "./starRating.module.scss";
 
 interface StarRatingProps extends PropsWithChildren {
   label?: string;
+  value: number;
+  setValue: Dispatch<SetStateAction<number>>;
 }
 
 const StarRating: React.FC<StarRatingProps> = (props) => {
-  const [currentValue, setCurrentValue] = useState(0);
   const [hoverValue, setHoverValue] = useState<number | undefined>(undefined);
 
   const stars = Array(10).fill(0);
 
   const handleClick: (value: number) => void = (value) => {
-    setCurrentValue(value);
+    props.setValue(value);
   };
 
   const handleMouseOver: (value: number) => void = (newHoverValue) => {
@@ -38,7 +39,7 @@ const StarRating: React.FC<StarRatingProps> = (props) => {
               onMouseOver={() => handleMouseOver(index + 1)}
               onMouseLeave={handleMouseLeave}
               className={
-                (hoverValue || currentValue) > index
+                (hoverValue || props.value) > index
                   ? classes.starActive
                   : undefined
               }
