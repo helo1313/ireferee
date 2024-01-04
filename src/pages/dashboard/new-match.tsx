@@ -6,6 +6,9 @@ import StarRating from "@/components/starRating/StarRating";
 import CardsPicker from "@/components/cardsPicker/cartsPicker";
 import Textarea from "@/components/ui/textarea/Textarea";
 import useInputState from "@/utils/hooks/useInputState";
+import { auth, db } from "@/firebase/config";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { collection, addDoc } from "firebase/firestore";
 
 export default function NewMatch() {
   const [homeTeam, setHomeTeam, homeTeamError, setHomeTeamError] =
@@ -36,6 +39,8 @@ export default function NewMatch() {
   const [ageCategory, setAgeCategory] = useState("Senior");
   const [competition, setCompetition] = useState("League");
 
+  const [user] = useAuthState(auth);
+
   const validateMatch: () => boolean = () => {
     let matchIsValid = true;
 
@@ -55,7 +60,24 @@ export default function NewMatch() {
   const SubmitMatch = (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    validateMatch();
+    //validateMatch();
+
+    sendMatch();
+  };
+
+  const sendMatch = async () => {
+    if (!user) {
+      return;
+    }
+
+    const matchesCollection = collection(db, user.uid);
+
+    const res = await addDoc(matchesCollection, {
+      homeTeam: "test home team",
+      awayTeam: "test away team",
+    });
+
+    console.log(res);
   };
 
   return (
@@ -139,7 +161,6 @@ export default function NewMatch() {
 
             {role === "Referee" && (
               <>
-                {" "}
                 <CardsPicker type="yellow-card" label="Yellow cards" />
                 <CardsPicker type="red-card" label="Red cards" />
               </>
