@@ -2,7 +2,7 @@ import Input from "@/components/ui/input/Input";
 import classes from "../../styles/Pages/new-match.module.scss";
 import { useState } from "react";
 import OptionPicker from "@/components/ui/optionPicker/OptionPicker";
-import StarRating from "@/components/starRating/StarRating";
+import StarRating from "@/components/starRating/StarRatingPicker";
 import CardsPicker from "@/components/cardsPicker/cartsPicker";
 import Textarea from "@/components/ui/textarea/Textarea";
 import useInputState from "@/utils/hooks/useInputState";
@@ -10,6 +10,7 @@ import { auth, db } from "@/firebase/config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { collection, addDoc } from "firebase/firestore";
 import MatchData from "@/utils/interfaces/matchData";
+import StarRatingPicker from "@/components/starRating/StarRatingPicker";
 
 export default function NewMatch() {
   const [homeTeam, setHomeTeam, homeTeamError, setHomeTeamError] =
@@ -44,7 +45,6 @@ export default function NewMatch() {
   const [redCards, setRedCards] = useState(0);
 
   const [overall, setOverall] = useState(0);
-
   const [description, setDescription] = useState("");
 
   const [user] = useAuthState(auth);
@@ -97,8 +97,6 @@ export default function NewMatch() {
     const matchesCollection = collection(db, user.uid);
 
     const res = await addDoc(matchesCollection, data);
-
-    console.log(res);
   };
 
   return (
@@ -199,7 +197,11 @@ export default function NewMatch() {
           </div>
           <div className={classes.performance}>
             <h4 className={classes.section}>Performance</h4>
-            <StarRating label="Overall" value={overall} setValue={setOverall} />
+            <StarRatingPicker
+              label="Overall"
+              value={overall}
+              setValue={setOverall}
+            />
 
             <Input
               name="Distance"

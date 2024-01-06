@@ -1,7 +1,7 @@
 import { Dispatch, PropsWithChildren, SetStateAction, useState } from "react";
 import { FaStar } from "react-icons/fa";
 
-import classes from "./starRating.module.scss";
+import classes from "./starRatingPicker.module.scss";
 
 interface StarRatingProps extends PropsWithChildren {
   label?: string;
@@ -9,7 +9,7 @@ interface StarRatingProps extends PropsWithChildren {
   setValue: Dispatch<SetStateAction<number>>;
 }
 
-const StarRating: React.FC<StarRatingProps> = (props) => {
+const StarRatingPicker: React.FC<StarRatingProps> = (props) => {
   const [hoverValue, setHoverValue] = useState<number | undefined>(undefined);
 
   const stars = Array(10).fill(0);
@@ -27,7 +27,7 @@ const StarRating: React.FC<StarRatingProps> = (props) => {
   };
 
   return (
-    <div className={classes.starRating}>
+    <div className={classes.starRatingPicker}>
       {props.label && <p className={classes.label}>{props.label}</p>}
       <div className={classes.starRatingWrapper}>
         {stars.map((_, index) => {
@@ -51,4 +51,4 @@ const StarRating: React.FC<StarRatingProps> = (props) => {
   );
 };
 
-export default StarRating;
+export default StarRatingPicker;
