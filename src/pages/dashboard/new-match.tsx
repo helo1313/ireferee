@@ -7,7 +7,7 @@ import Textarea from "@/components/ui/textarea/Textarea";
 import useInputState from "@/utils/hooks/useInputState";
 import { auth, db } from "@/firebase/config";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 import MatchData from "@/utils/interfaces/matchData";
 import StarRatingPicker from "@/components/starRating/StarRatingPicker";
 import { v4 as uuidv4 } from "uuid";
@@ -99,7 +99,7 @@ export default function NewMatch() {
 
     const matchesCollection = collection(db, user.uid);
 
-    const res = await addDoc(matchesCollection, data);
+    const res = await setDoc(doc(db, user.uid, data.id), data);
   };
 
   return (
