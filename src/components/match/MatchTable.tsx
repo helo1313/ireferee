@@ -14,11 +14,7 @@ interface MatchTableData {
 const MatchTable: React.FC<MatchTableData> = ({ user }) => {
   const matchesCollection = collection(db, user);
 
-  console.log(matchesCollection);
-
   const [matches] = useCollectionData(matchesCollection);
-
-  console.log(matches);
 
   const transformedMatches = matches as MatchData[];
 

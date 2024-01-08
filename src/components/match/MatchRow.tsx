@@ -10,18 +10,24 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "@/firebase/config";
 
 import { doc, deleteDoc } from "firebase/firestore";
+import { useRouter } from "next/router";
 
 interface Match {
   data: MatchData;
 }
 
 const MatchRow: React.FC<Match> = ({ data }) => {
+  const router = useRouter();
   const [user] = useAuthState(auth);
 
   const deleteMatch = async () => {
     if (user) {
       await deleteDoc(doc(db, user.uid, data.id));
     }
+  };
+
+  const viewMatch = () => {
+    router.push(`view/${data.id}`);
   };
 
   return (
@@ -40,7 +46,7 @@ const MatchRow: React.FC<Match> = ({ data }) => {
       <p>{data.status}</p>
 
       <div className={classes.actionContainer}>
-        <button className={classes.action}>
+        <button className={classes.action} onClick={viewMatch}>
           <FaEye />
         </button>
         <button className={classes.action}>
