@@ -2,7 +2,6 @@ import Input from "@/components/ui/input/Input";
 import classes from "../../styles/Pages/new-match.module.scss";
 import { useState } from "react";
 import OptionPicker from "@/components/ui/optionPicker/OptionPicker";
-import StarRating from "@/components/starRating/StarRatingPicker";
 import CardsPicker from "@/components/cardsPicker/cartsPicker";
 import Textarea from "@/components/ui/textarea/Textarea";
 import useInputState from "@/utils/hooks/useInputState";
@@ -17,6 +16,9 @@ export default function NewMatch() {
     useInputState();
   const [awayTeam, setAwayTeam, awayTeamError, setAwayTeamError] =
     useInputState();
+
+  const [date, setDate, dateError, setDateError] = useInputState();
+
   const [
     homeTeamScore,
     setHomeTeamScore,
@@ -68,11 +70,10 @@ export default function NewMatch() {
   const SubmitMatch = (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    //validateMatch();
-
     sendMatch({
       homeTeam: homeTeam,
       awayTeam: awayTeam,
+      date: date,
       status: status,
       role: role,
       ageCategory: ageCategory,
@@ -125,7 +126,15 @@ export default function NewMatch() {
           error={awayTeamError}
         />
       </div>
-      <input type="date" value="2017-06-01" />
+      <Input
+        name="Test"
+        type="date"
+        label="Match date"
+        placeholder="Enter match date"
+        value={date}
+        setValue={setDate}
+        error={dateError}
+      />
       <OptionPicker
         label="Status"
         options={["Planned", "Finished"]}

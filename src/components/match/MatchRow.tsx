@@ -14,6 +14,7 @@ interface Match {
 const MatchRow: React.FC<Match> = ({ data }) => {
   return (
     <div className={classes.matchRow}>
+      <p>{data.date}</p>
       <p className={classes.roleIcon}>
         {data.role === "Referee" ? <GiWhistle /> : <FaFlag />}
       </p>

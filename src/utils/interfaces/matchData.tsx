@@ -1,6 +1,7 @@
 interface MatchData {
   homeTeam: string;
   awayTeam: string;
+  date: string;
   status: string;
   role: string;
   ageCategory: string;
