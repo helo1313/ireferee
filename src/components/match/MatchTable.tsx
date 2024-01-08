@@ -15,18 +15,13 @@ const MatchTable: React.FC<MatchTableData> = ({ user }) => {
   const matchesCollection = collection(db, user);
   const [matches] = useCollectionData(matchesCollection);
 
-  useEffect(() => {
-    console.log(matches?.length);
-    console.log(matches);
-  }, [matches]);
-
   const transformedMatches = matches as MatchData[];
 
   return (
     <div className={classes.matchRow}>
       {transformedMatches &&
         transformedMatches.map((match) => {
-          return <MatchRow data={match} />;
+          return <MatchRow key={match.id} data={match} />;
         })}
     </div>
   );

@@ -1,4 +1,5 @@
 interface MatchData {
+  id: string;
   homeTeam: string;
   awayTeam: string;
   date: string;

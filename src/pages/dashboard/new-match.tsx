@@ -10,6 +10,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { collection, addDoc } from "firebase/firestore";
 import MatchData from "@/utils/interfaces/matchData";
 import StarRatingPicker from "@/components/starRating/StarRatingPicker";
+import { v4 as uuidv4 } from "uuid";
 
 export default function NewMatch() {
   const [homeTeam, setHomeTeam, homeTeamError, setHomeTeamError] =
@@ -71,6 +72,7 @@ export default function NewMatch() {
     event.preventDefault();
 
     sendMatch({
+      id: uuidv4(),
       homeTeam: homeTeam,
       awayTeam: awayTeam,
       date: date,
