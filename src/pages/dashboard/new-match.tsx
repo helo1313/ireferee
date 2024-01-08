@@ -125,6 +125,7 @@ export default function NewMatch() {
           error={awayTeamError}
         />
       </div>
+      <input type="date" value="2017-06-01" />
       <OptionPicker
         label="Status"
         options={["Planned", "Finished"]}

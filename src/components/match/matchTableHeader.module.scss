@@ -1,0 +1,10 @@
+.matchTableHeader {
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-template-columns: 3rem 2fr 1.5fr 0.6fr 0.6fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  padding-bottom: 0.5rem;
+  margin: 0.5rem 0;
+  border-bottom: 1px solid var(--color-grey-400);
+}
