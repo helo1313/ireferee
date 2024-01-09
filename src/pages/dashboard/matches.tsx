@@ -11,6 +11,7 @@ export default function Matches() {
     <div className={classes.matches}>
       <h2>My matches</h2>
       <MatchTableHeader />
+
       {user && <MatchTable user={user.uid} />}
     </div>
   );
