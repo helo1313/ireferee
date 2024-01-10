@@ -27,7 +27,9 @@ const MatchRow: React.FC<Match> = ({ data }) => {
   };
 
   const viewMatch = () => {
-    router.push(`view/${data.id}`);
+    if (user) {
+      router.push(`${user.uid}/view/${data.id}`);
+    }
   };
 
   return (
