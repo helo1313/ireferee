@@ -120,3 +120,40 @@
 .red {
   color: var(--color-red-700);
 }
+
+.performanceStatsContainer {
+  margin: 1rem 0;
+  width: 800px;
+  height: 100px;
+  display: grid;
+
+  gap: 1rem;
+
+  grid-auto-columns: 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+
+  font-size: 4rem;
+}
+
+.performanceStatsBig {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-grey-50);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--border-radius-lg);
+  font-size: 1.6rem;
+  grid-area: 1 / 1 / 2 / 3;
+}
+
+.descriptionContainer {
+  box-sizing: border-box;
+  padding: 1rem;
+  width: 800px;
+  min-height: 100px;
+  background-color: var(--color-grey-50);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--border-radius-lg);
+}

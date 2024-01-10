@@ -8,6 +8,8 @@ import MatchData from "@/utils/interfaces/matchData";
 import Warning from "@/components/ui/warning/Warning";
 import { GiGoalKeeper } from "react-icons/gi";
 import { GiCardJoker } from "react-icons/gi";
+import { FaRunning } from "react-icons/fa";
+import StarRatingDisplay from "@/components/starRating/StarRatingDisplay";
 
 export default function MatchView() {
   const router = useRouter();
@@ -44,7 +46,9 @@ export default function MatchView() {
       )}
 
       <p className={classes.date}>{data?.date}</p>
-      <p className={classes.competition}>{data?.competition}</p>
+      <p className={classes.competition}>
+        {data?.competition} - {data?.ageCategory} - {data?.role}
+      </p>
 
       <div className={classes.teams}>
         <p className={classes.homeTeam}>{data?.homeTeam}</p>
@@ -83,6 +87,24 @@ export default function MatchView() {
                 <p className={classes.desc}>Red Cards</p>
               </div>
             </div>
+          </div>
+
+          <p className={classes.sectionName}>Performance overview</p>
+          <div className={classes.performanceStatsContainer}>
+            <div className={classes.performanceStatsBig}>
+              <p>Overall rating</p>
+              <StarRatingDisplay value={data?.overall} />
+            </div>
+            <div className={`${classes.matchStats}`}>
+              <FaRunning />
+              <div className={classes.matchStatsData}>
+                <p className={classes.value}>{data?.distanceCovered}</p>
+                <p className={classes.desc}>Distance</p>
+              </div>
+            </div>
+          </div>
+          <div className={classes.descriptionContainer}>
+            <p>{data?.description}</p>
           </div>
         </>
       )}
