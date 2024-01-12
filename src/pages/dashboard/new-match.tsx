@@ -11,6 +11,8 @@ import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 import MatchData from "@/utils/interfaces/matchData";
 import StarRatingPicker from "@/components/starRating/StarRatingPicker";
 import { v4 as uuidv4 } from "uuid";
+import { useRouter } from "next/router";
+import { MATCHES_ROUTE } from "@/utils/constants/routes";
 
 export default function NewMatch() {
   const [homeTeam, setHomeTeam, homeTeamError, setHomeTeamError] =
@@ -51,6 +53,7 @@ export default function NewMatch() {
   const [description, setDescription] = useState("");
 
   const [user] = useAuthState(auth);
+  const router = useRouter();
 
   const validateMatch: () => boolean = () => {
     let matchIsValid = true;
@@ -93,13 +96,17 @@ export default function NewMatch() {
   };
 
   const sendMatch = async (data: MatchData) => {
-    if (!user) {
-      return;
+    try {
+      if (!user) {
+        throw new Error("User is not logged in.");
+      }
+
+      await setDoc(doc(db, user.uid, data.id), data);
+
+      router.push(MATCHES_ROUTE);
+    } catch (error) {
+      console.log(error);
     }
-
-    const matchesCollection = collection(db, user.uid);
-
-    const res = await setDoc(doc(db, user.uid, data.id), data);
   };
 
   return (

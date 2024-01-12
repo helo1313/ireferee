@@ -1,4 +1,3 @@
-import { useParams } from "next/navigation";
 import classes from "../../../../styles/Pages/view/matchView.module.scss";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
