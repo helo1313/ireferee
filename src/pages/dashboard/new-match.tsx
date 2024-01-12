@@ -68,7 +68,7 @@ export default function NewMatch() {
     return matchIsValid;
   };
 
-  const SubmitMatch = (event: React.SyntheticEvent<HTMLFormElement>) => {
+  const submitMatch = (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     sendMatch({
@@ -103,7 +103,7 @@ export default function NewMatch() {
   };
 
   return (
-    <form className={classes.newMatch} onSubmit={SubmitMatch}>
+    <form className={classes.newMatch} onSubmit={submitMatch}>
       <h2>Add match</h2>
       <h4>General</h4>
       <div className={classes.teams}>

@@ -32,6 +32,12 @@ const MatchRow: React.FC<Match> = ({ data }) => {
     }
   };
 
+  const editMatch = () => {
+    if (user) {
+      router.push(`${user.uid}/edit/${data.id}`);
+    }
+  };
+
   return (
     <div className={classes.matchRow}>
       <p>{data.date}</p>
@@ -51,7 +57,7 @@ const MatchRow: React.FC<Match> = ({ data }) => {
         <button className={classes.action} onClick={viewMatch}>
           <FaEye />
         </button>
-        <button className={classes.action}>
+        <button className={classes.action} onClick={editMatch}>
           <MdEdit />
         </button>
         <button className={classes.action} onClick={deleteMatch}>
