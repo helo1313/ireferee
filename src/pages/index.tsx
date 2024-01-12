@@ -49,7 +49,6 @@ export default function Home() {
             }}
             styleType="secondary"
           >
-            {" "}
             About site
           </Button>
         </div>
