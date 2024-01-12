@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import useInputState from "@/utils/hooks/useInputState";
 import { useRouter } from "next/router";
 import MatchData from "@/utils/interfaces/matchData";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebase/config";
 
 export default function MatchEdit() {
@@ -80,10 +80,31 @@ export default function MatchEdit() {
     setDistanceCovered(data.distanceCovered.toString());
   }, [data]);
 
-  const submitEditMatch = (event: React.SyntheticEvent<HTMLFormElement>) => {};
+  const onEditSubmit = (event: React.SyntheticEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    submitMatch();
+  };
+
+  const submitMatch = async () => {
+    const docRef = doc(db, userid as string, id as string);
+    const res = await updateDoc(docRef, {
+      status: status,
+      role: role,
+
+      homeScore: +homeTeamScore,
+      awayScore: +awayTeamScore,
+      yellowCards: yellowCards,
+      redCards: redCards,
+
+      overall: overall,
+      distanceCovered: +distanceCovered,
+      description: description,
+    });
+  };
 
   return (
-    <form className={classes.newMatch} onSubmit={submitEditMatch}>
+    <form className={classes.newMatch} onSubmit={onEditSubmit}>
       <h2>Edit match</h2>
       <h4>General</h4>
       <OptionPicker
