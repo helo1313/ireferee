@@ -19,9 +19,8 @@ export default function SignIn() {
     useCreateUserWithEmailAndPassword(auth);
 
   const handleSignUp = async (event: React.SyntheticEvent<HTMLFormElement>) => {
+    event.preventDefault();
     try {
-      event.preventDefault();
-
       if (password !== confirmPassword) {
         setPassword("");
         setConfirmPassword("");

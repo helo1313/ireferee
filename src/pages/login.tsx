@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import Input from "@/components/ui/input/Input";
 
 import classes from "../styles/Pages/login.module.scss";
+import { DASHBOARD_ROUTE } from "@/utils/constants/routes";
 
 export default function Login() {
   const [user] = useAuthState(auth);
@@ -25,7 +26,7 @@ export default function Login() {
 
   useEffect(() => {
     if (user) {
-      router.push("/dashboard");
+      router.push(DASHBOARD_ROUTE);
     }
   }, [user]);
 

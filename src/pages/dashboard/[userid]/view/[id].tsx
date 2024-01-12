@@ -98,7 +98,7 @@ export default function MatchView() {
             <div className={`${classes.matchStats}`}>
               <FaRunning />
               <div className={classes.matchStatsData}>
-                <p className={classes.value}>{data?.distanceCovered}</p>
+                <p className={classes.value}>{data?.distanceCovered}km</p>
                 <p className={classes.desc}>Distance</p>
               </div>
             </div>
