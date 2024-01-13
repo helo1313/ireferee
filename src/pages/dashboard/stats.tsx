@@ -32,5 +32,7 @@ export default function Stats() {
     setStatsData(getStats(data));
   };
 
+  console.log(statsData);
+
   return <div className={classes.stats}>STATS</div>;
 }
