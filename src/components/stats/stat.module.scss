@@ -1,0 +1,40 @@
+// .matchStatsContainer {
+//   margin: 1rem 0;
+//   width: 800px;
+//   height: 100px;
+//   display: grid;
+
+//   gap: 1rem;
+
+//   grid-auto-columns: 1fr;
+//   grid-template-columns: 1fr 1fr 1fr;
+//   grid-template-rows: 1fr;
+// }
+
+.stat {
+  display: flex;
+  min-width: 200px;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 1.2rem;
+  background-color: var(--color-grey-50);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--border-radius-lg);
+
+  font-size: 4rem;
+}
+
+.statsData {
+  display: flex;
+  padding-left: 0.6rem;
+  flex-direction: column;
+  color: var(--color-grey-700);
+
+  .value {
+    font-size: 2rem;
+  }
+
+  .desc {
+    font-size: 1.2rem;
+  }
+}

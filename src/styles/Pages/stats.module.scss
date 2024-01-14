@@ -1,7 +1,49 @@
 .stats {
   height: 100dvh;
+  width: 1000px;
+  margin: auto;
+  padding: 100px 0;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  // align-items: center;
   justify-content: center;
+
+  //background-color: red;
+}
+
+.statsContainer {
+  flex-basis: 50%;
+
+  display: grid;
+  gap: 1rem;
+
+  grid-auto-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
+  //background-color: blue;
+}
+
+.graphsContainer {
+  flex-basis: 50%;
+  height: 100px;
+
+  //background-color: green;
+}
+
+.avgPerformance {
+  display: flex;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 1.2rem;
+  background-color: var(--color-grey-50);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--border-radius-lg);
+
+  grid-area: 1 / 1 / 1 / 3;
+
+  p {
+    padding: 5px;
+    font-size: 1.2rem;
+  }
 }
