@@ -19,6 +19,8 @@ import {
   Tooltip,
 } from "recharts";
 import prepareRoleChartData from "@/utils/functions/prepareRoleChartData";
+import prepareCompetitionChartData from "@/utils/functions/prepareCompetitionChartData";
+import prepareAgeCategoryChartData from "@/utils/functions/prepareAgeCategoryChartData";
 
 export default function Stats() {
   const [statsData, setStatsData] = useState<StatsData | undefined>(undefined);
@@ -45,6 +47,8 @@ export default function Stats() {
   };
 
   const roleChartData = prepareRoleChartData(statsData!);
+  const competitionChartData = prepareCompetitionChartData(statsData!);
+  const ageCategoryChartData = prepareAgeCategoryChartData(statsData!);
 
   return (
     statsData && (
@@ -140,6 +144,66 @@ export default function Stats() {
                   paddingAngle={3}
                 >
                   {roleChartData.map((entry) => (
+                    <Cell fill={entry.color} color={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip />
+                <Legend
+                  verticalAlign="middle"
+                  align="right"
+                  layout="vertical"
+                  iconSize={15}
+                  iconType="circle"
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+
+          <div className={classes.chart}>
+            <p>Competition division</p>
+            <ResponsiveContainer width="100%" height={240}>
+              <PieChart>
+                <Pie
+                  data={competitionChartData}
+                  nameKey="label"
+                  dataKey="value"
+                  innerRadius={85}
+                  outerRadius={110}
+                  cx="40%"
+                  cy="50%"
+                  paddingAngle={3}
+                >
+                  {competitionChartData.map((entry) => (
+                    <Cell fill={entry.color} color={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip />
+                <Legend
+                  verticalAlign="middle"
+                  align="right"
+                  layout="vertical"
+                  iconSize={15}
+                  iconType="circle"
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+
+          <div className={classes.chart}>
+            <p>Age category division</p>
+            <ResponsiveContainer width="100%" height={240}>
+              <PieChart>
+                <Pie
+                  data={ageCategoryChartData}
+                  nameKey="label"
+                  dataKey="value"
+                  innerRadius={85}
+                  outerRadius={110}
+                  cx="40%"
+                  cy="50%"
+                  paddingAngle={3}
+                >
+                  {ageCategoryChartData.map((entry) => (
                     <Cell fill={entry.color} color={entry.color} />
                   ))}
                 </Pie>
