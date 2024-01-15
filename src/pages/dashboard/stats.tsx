@@ -8,16 +8,11 @@ import MatchData from "@/utils/interfaces/matchData";
 import StatsData from "@/utils/interfaces/statsData";
 import { getStats } from "@/utils/functions/getStats";
 import Stat from "@/components/stats/Stat";
-import { GiGoalKeeper } from "react-icons/gi";
+import { GiGoalKeeper, GiSoccerBall, GiCardJoker } from "react-icons/gi";
+import { TbSoccerField } from "react-icons/tb";
+import { FaRunning } from "react-icons/fa";
 import StarRatingDisplay from "@/components/starRating/StarRatingDisplay";
-import {
-  Cell,
-  Legend,
-  Pie,
-  PieChart,
-  ResponsiveContainer,
-  Tooltip,
-} from "recharts";
+
 import prepareRoleChartData from "@/utils/functions/prepareRoleChartData";
 import prepareCompetitionChartData from "@/utils/functions/prepareCompetitionChartData";
 import prepareAgeCategoryChartData from "@/utils/functions/prepareAgeCategoryChartData";
@@ -62,46 +57,46 @@ export default function Stats() {
               statsData.totalMatches.assistantRefeere
             ).toFixed()}
           >
-            <GiGoalKeeper />
+            <TbSoccerField />
           </Stat>
           <Stat label="Total goals" value={statsData.totalGoals.toFixed()}>
-            <GiGoalKeeper />
+            <GiSoccerBall />
           </Stat>
 
           <Stat
             label="Most goals"
             value={statsData.mostGoalsInSingleMatch.toFixed()}
           >
-            <GiGoalKeeper />
+            <GiSoccerBall />
           </Stat>
           <Stat label="Average goals" value={statsData.avgGoals.toFixed(2)}>
-            <GiGoalKeeper />
+            <GiSoccerBall />
           </Stat>
 
           <Stat
             label="Total Yellow Cards"
             value={statsData.totalYellowCards.toFixed()}
           >
-            <GiGoalKeeper />
+            <GiCardJoker />
           </Stat>
           <Stat
             label="Average Yellow Cards"
             value={statsData.avgYellowCards.toFixed(2)}
           >
-            <GiGoalKeeper />
+            <GiCardJoker />
           </Stat>
 
           <Stat
             label="Total Red Cards"
             value={statsData.totalRedCards.toFixed()}
           >
-            <GiGoalKeeper />
+            <GiCardJoker />
           </Stat>
           <Stat
             label="Average Red Cards"
             value={statsData.avgRedCards.toFixed(2)}
           >
-            <GiGoalKeeper />
+            <GiCardJoker />
           </Stat>
 
           <Stat label="Total penalty" value="0">
@@ -113,15 +108,15 @@ export default function Stats() {
 
           <Stat
             label="Total distance covered"
-            value={statsData.totalDistance.toFixed(2)}
+            value={statsData.totalDistance.toFixed(2) + "km"}
           >
-            <GiGoalKeeper />
+            <FaRunning />
           </Stat>
           <Stat
             label="Average distance covered"
-            value={statsData.avgDistance.toFixed(2)}
+            value={statsData.avgDistance.toFixed(2) + "km"}
           >
-            <GiGoalKeeper />
+            <FaRunning />
           </Stat>
 
           <div className={classes.avgPerformance}>
