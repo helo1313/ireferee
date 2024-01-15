@@ -3,7 +3,7 @@ interface StatsData {
   mostGoalsInSingleMatch: number;
   totalGoals: number;
   avgGoals: number;
-  totalMatches: { refeere: number; assistantRefeere: number };
+  totalMatches: { referee: number; assistantRefeere: number };
   totalMatchesInAgeCategory: { junior: number; senior: number };
   totalMatchesInCompetition: { league: number; cup: number; friendly: number };
   //totalPenalty: number;

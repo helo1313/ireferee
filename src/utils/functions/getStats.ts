@@ -2,7 +2,7 @@ import MatchData from "../interfaces/matchData";
 import StatsData from "../interfaces/statsData";
 
 export const getStats: (data: MatchData[]) => StatsData = (data) => {
-  let totalMatches = { refeere: 0, assistantRefeere: 0 };
+  let totalMatches = { referee: 0, assistantRefeere: 0 };
   let totalMatchesInAgeCategory = { junior: 0, senior: 0 };
   let totalMatchesInCompetition = { league: 0, cup: 0, friendly: 0 };
   let totalGoals = 0;
@@ -18,8 +18,8 @@ export const getStats: (data: MatchData[]) => StatsData = (data) => {
       return;
     }
 
-    if (match.role === "Refeere") {
-      totalMatches.refeere += 1;
+    if (match.role === "Referee") {
+      totalMatches.referee += 1;
     } else {
       totalMatches.assistantRefeere += 1;
     }
@@ -50,7 +50,7 @@ export const getStats: (data: MatchData[]) => StatsData = (data) => {
     totalPerformance += match.overall;
   });
 
-  const totalMatchesSum = totalMatches.refeere + totalMatches.assistantRefeere;
+  const totalMatchesSum = totalMatches.referee + totalMatches.assistantRefeere;
 
   let stats: StatsData = {
     mostGoalsInSingleMatch: mostGoalsInSingleMatch,

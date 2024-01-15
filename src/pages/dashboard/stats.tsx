@@ -10,6 +10,15 @@ import { getStats } from "@/utils/functions/getStats";
 import Stat from "@/components/stats/Stat";
 import { GiGoalKeeper } from "react-icons/gi";
 import StarRatingDisplay from "@/components/starRating/StarRatingDisplay";
+import {
+  Cell,
+  Legend,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+} from "recharts";
+import prepareRoleChartData from "@/utils/functions/prepareRoleChartData";
 
 export default function Stats() {
   const [statsData, setStatsData] = useState<StatsData | undefined>(undefined);
@@ -35,7 +44,7 @@ export default function Stats() {
     setStatsData(getStats(data));
   };
 
-  console.log(statsData);
+  const roleChartData = prepareRoleChartData(statsData!);
 
   return (
     statsData && (
@@ -44,7 +53,7 @@ export default function Stats() {
           <Stat
             label="Total matches"
             value={(
-              statsData.totalMatches.refeere +
+              statsData.totalMatches.referee +
               statsData.totalMatches.assistantRefeere
             ).toFixed()}
           >
@@ -115,7 +124,37 @@ export default function Stats() {
             <p>Average performance rating</p>
           </div>
         </div>
-        <div className={classes.graphsContainer}></div>
+        <div className={classes.chartsContainer}>
+          <div className={classes.chart}>
+            <p>Role division</p>
+            <ResponsiveContainer width="100%" height={240}>
+              <PieChart>
+                <Pie
+                  data={roleChartData}
+                  nameKey="label"
+                  dataKey="value"
+                  innerRadius={85}
+                  outerRadius={110}
+                  cx="40%"
+                  cy="50%"
+                  paddingAngle={3}
+                >
+                  {roleChartData.map((entry) => (
+                    <Cell fill={entry.color} color={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip />
+                <Legend
+                  verticalAlign="middle"
+                  align="right"
+                  layout="vertical"
+                  iconSize={15}
+                  iconType="circle"
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
       </div>
     )
   );

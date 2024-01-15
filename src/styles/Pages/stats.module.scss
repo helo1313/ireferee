@@ -22,13 +22,6 @@
   //background-color: blue;
 }
 
-.graphsContainer {
-  flex-basis: 50%;
-  height: 100px;
-
-  //background-color: green;
-}
-
 .avgPerformance {
   display: flex;
 
@@ -41,6 +34,29 @@
   border-radius: var(--border-radius-lg);
 
   grid-area: 1 / 1 / 1 / 3;
+
+  p {
+    padding: 5px;
+    font-size: 1.2rem;
+  }
+}
+
+.chartsContainer {
+  flex-basis: 50%;
+  height: 100px;
+
+  //background-color: green;
+}
+
+.chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 1rem;
+  padding: 1rem;
+  background-color: var(--color-grey-50);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--border-radius-lg);
 
   p {
     padding: 5px;
