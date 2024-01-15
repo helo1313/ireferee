@@ -1,5 +1,4 @@
 .stats {
-  height: 100dvh;
   width: 1000px;
   margin: auto;
   padding: 100px 0;
@@ -43,23 +42,6 @@
 
 .chartsContainer {
   flex-basis: 50%;
-  height: 100px;
 
-  //background-color: green;
-}
-
-.chart {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 1rem 1rem 1rem;
-  padding: 1rem;
-  background-color: var(--color-grey-50);
-  box-shadow: var(--shadow-md);
-  border-radius: var(--border-radius-lg);
-
-  p {
-    padding: 5px;
-    font-size: 1.2rem;
-  }
+  margin-bottom: 1rem;
 }
