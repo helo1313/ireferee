@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import MatchData from "@/utils/interfaces/matchData";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebase/config";
+import AuthProvider from "@/components/auth/authProvider";
 
 export default function MatchEdit() {
   const [status, setStatus] = useState("Planned");
@@ -104,95 +105,97 @@ export default function MatchEdit() {
   };
 
   return (
-    <form className={classes.newMatch} onSubmit={onEditSubmit}>
-      <h2>Edit match</h2>
-      <h4>General</h4>
-      <OptionPicker
-        label="Status"
-        options={["Planned", "Finished"]}
-        value={status}
-        setValue={setStatus}
-      />
+    <AuthProvider>
+      <form className={classes.newMatch} onSubmit={onEditSubmit}>
+        <h2>Edit match</h2>
+        <h4>General</h4>
+        <OptionPicker
+          label="Status"
+          options={["Planned", "Finished"]}
+          value={status}
+          setValue={setStatus}
+        />
 
-      {status === "Finished" ? (
-        <>
-          <div className={classes.matchSummary}>
-            <h4 className={classes.section}>Match summary</h4>
-            <div className={classes.teams}>
-              <Input
-                name="Home score"
-                type="number"
-                label="Home score"
-                labelAlign="right"
-                placeholder="Enter team score"
-                value={homeTeamScore}
-                setValue={setHomeTeamScore}
-                error={homeTeamScoreError}
+        {status === "Finished" ? (
+          <>
+            <div className={classes.matchSummary}>
+              <h4 className={classes.section}>Match summary</h4>
+              <div className={classes.teams}>
+                <Input
+                  name="Home score"
+                  type="number"
+                  label="Home score"
+                  labelAlign="right"
+                  placeholder="Enter team score"
+                  value={homeTeamScore}
+                  setValue={setHomeTeamScore}
+                  error={homeTeamScoreError}
+                />
+                <p> vs </p>
+                <Input
+                  name="Away score"
+                  type="number"
+                  label="Away score"
+                  placeholder="Enter team score"
+                  value={awayTeamScore}
+                  setValue={setAwayTeamScore}
+                  error={awayTeamScoreError}
+                />
+              </div>
+
+              {role === "Referee" && (
+                <>
+                  <CardsPicker
+                    type="yellow-card"
+                    label="Yellow cards"
+                    value={yellowCards}
+                    setValue={setYellowCards}
+                  />
+                  <CardsPicker
+                    type="red-card"
+                    label="Red cards"
+                    value={redCards}
+                    setValue={setRedCards}
+                  />
+                </>
+              )}
+            </div>
+            <div className={classes.performance}>
+              <h4 className={classes.section}>Performance</h4>
+              <StarRatingPicker
+                label="Overall"
+                value={overall}
+                setValue={setOverall}
               />
-              <p> vs </p>
+
               <Input
-                name="Away score"
+                name="Distance"
                 type="number"
-                label="Away score"
-                placeholder="Enter team score"
-                value={awayTeamScore}
-                setValue={setAwayTeamScore}
-                error={awayTeamScoreError}
+                label="Distance covered in km"
+                placeholder="Enter distance covered"
+                value={distanceCovered}
+                setValue={setDistanceCovered}
+                error={distanceCoveredError}
+              />
+
+              <Textarea
+                label="Describe your performance"
+                value={description}
+                setValue={setDescription}
               />
             </div>
+          </>
+        ) : (
+          <h4 className={classes.section}>
+            Match summary and performance will be avaiable when match is marked
+            as finished
+          </h4>
+        )}
 
-            {role === "Referee" && (
-              <>
-                <CardsPicker
-                  type="yellow-card"
-                  label="Yellow cards"
-                  value={yellowCards}
-                  setValue={setYellowCards}
-                />
-                <CardsPicker
-                  type="red-card"
-                  label="Red cards"
-                  value={redCards}
-                  setValue={setRedCards}
-                />
-              </>
-            )}
-          </div>
-          <div className={classes.performance}>
-            <h4 className={classes.section}>Performance</h4>
-            <StarRatingPicker
-              label="Overall"
-              value={overall}
-              setValue={setOverall}
-            />
-
-            <Input
-              name="Distance"
-              type="number"
-              label="Distance covered in km"
-              placeholder="Enter distance covered"
-              value={distanceCovered}
-              setValue={setDistanceCovered}
-              error={distanceCoveredError}
-            />
-
-            <Textarea
-              label="Describe your performance"
-              value={description}
-              setValue={setDescription}
-            />
-          </div>
-        </>
-      ) : (
-        <h4 className={classes.section}>
-          Match summary and performance will be avaiable when match is marked as
-          finished
-        </h4>
-      )}
-
-      <button type="submit" className={classes.submitButton}>
-        Confirm edit
-      </button>
-    </form>
+        <button type="submit" className={classes.submitButton}>
+          Confirm edit
+        </button>
+      </form>
+    </AuthProvider>
   );
 }

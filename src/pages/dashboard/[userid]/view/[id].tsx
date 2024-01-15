@@ -9,6 +9,7 @@ import { GiGoalKeeper } from "react-icons/gi";
 import { GiCardJoker } from "react-icons/gi";
 import { FaRunning } from "react-icons/fa";
 import StarRatingDisplay from "@/components/starRating/StarRatingDisplay";
+import AuthProvider from "@/components/auth/authProvider";
 
 export default function MatchView() {
   const router = useRouter();
@@ -111,9 +112,11 @@ export default function MatchView() {
   );
 
   return (
-    <div className={classes.matchView}>
-      {isLoadingData && loadingContent}
-      {!isLoadingData && previewContent}
-    </div>
+    <AuthProvider>
+      <div className={classes.matchView}>
+        {isLoadingData && loadingContent}
+        {!isLoadingData && previewContent}
+      </div>
+    </AuthProvider>
   );
 }

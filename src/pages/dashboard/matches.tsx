@@ -6,6 +6,7 @@ import MatchTableHeader from "@/components/match/MatchTableHeader";
 import Button from "@/components/ui/button/Button";
 import { useRouter } from "next/router";
 import { CREATE_MATCH_ROUTE } from "@/utils/constants/routes";
+import AuthProvider from "@/components/auth/authProvider";
 
 export default function Matches() {
   const router = useRouter();
@@ -16,17 +17,19 @@ export default function Matches() {
   };
 
   return (
-    <div className={classes.matches}>
-      <header className={classes.header}>
-        <h2>My matches</h2>
-        <Button styleType="primary" onClick={onCreateNewMatch}>
-          Create new match
-        </Button>
-      </header>
+    <AuthProvider>
+      <div className={classes.matches}>
+        <header className={classes.header}>
+          <h2>My matches</h2>
+          <Button styleType="primary" onClick={onCreateNewMatch}>
+            Create new match
+          </Button>
+        </header>
 
-      <MatchTableHeader />
+        <MatchTableHeader />
 
-      {user && <MatchTable user={user.uid} />}
-    </div>
+        {user && <MatchTable user={user.uid} />}
+      </div>
+    </AuthProvider>
   );
 }

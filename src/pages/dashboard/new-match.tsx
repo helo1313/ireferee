@@ -1,6 +1,6 @@
 import Input from "@/components/ui/input/Input";
 import classes from "../../styles/Pages/new-match.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import OptionPicker from "@/components/ui/optionPicker/OptionPicker";
 import CardsPicker from "@/components/cardsPicker/cartsPicker";
 import Textarea from "@/components/ui/textarea/Textarea";
@@ -12,7 +12,8 @@ import MatchData from "@/utils/interfaces/matchData";
 import StarRatingPicker from "@/components/starRating/StarRatingPicker";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/router";
-import { MATCHES_ROUTE } from "@/utils/constants/routes";
+import { LOGIN_ROUTE, MATCHES_ROUTE } from "@/utils/constants/routes";
+import AuthProvider from "@/components/auth/authProvider";
 
 export default function NewMatch() {
   const [homeTeam, setHomeTeam, homeTeamError, setHomeTeamError] =
@@ -110,145 +111,147 @@ export default function NewMatch() {
   };
 
   return (
-    <form className={classes.newMatch} onSubmit={submitMatch}>
-      <h2>Add match</h2>
-      <h4>General</h4>
-      <div className={classes.teams}>
+    <AuthProvider>
+      <form className={classes.newMatch} onSubmit={submitMatch}>
+        <h2>Add match</h2>
+        <h4>General</h4>
+        <div className={classes.teams}>
+          <Input
+            name="Home team"
+            type="text"
+            label="Home team"
+            labelAlign="right"
+            placeholder="Enter team name"
+            value={homeTeam}
+            setValue={setHomeTeam}
+            error={homeTeamError}
+          />
+          <p> vs </p>
+          <Input
+            name="Away team"
+            type="text"
+            label="Away team"
+            placeholder="Enter team name"
+            value={awayTeam}
+            setValue={setAwayTeam}
+            error={awayTeamError}
+          />
+        </div>
         <Input
-          name="Home team"
-          type="text"
-          label="Home team"
-          labelAlign="right"
-          placeholder="Enter team name"
-          value={homeTeam}
-          setValue={setHomeTeam}
-          error={homeTeamError}
+          name="Test"
+          type="date"
+          label="Match date"
+          placeholder="Enter match date"
+          value={date}
+          setValue={setDate}
+          error={dateError}
         />
-        <p> vs </p>
-        <Input
-          name="Away team"
-          type="text"
-          label="Away team"
-          placeholder="Enter team name"
-          value={awayTeam}
-          setValue={setAwayTeam}
-          error={awayTeamError}
+        <OptionPicker
+          label="Status"
+          options={["Planned", "Finished"]}
+          value={status}
+          setValue={setStatus}
         />
-      </div>
-      <Input
-        name="Test"
-        type="date"
-        label="Match date"
-        placeholder="Enter match date"
-        value={date}
-        setValue={setDate}
-        error={dateError}
-      />
-      <OptionPicker
-        label="Status"
-        options={["Planned", "Finished"]}
-        value={status}
-        setValue={setStatus}
-      />
-      <OptionPicker
-        label="Role"
-        options={["Referee", "Assistant referee"]}
-        value={role}
-        setValue={setRole}
-      />
-      <OptionPicker
-        label="Age category"
-        options={["Senior", "Junior"]}
-        value={ageCategory}
-        setValue={setAgeCategory}
-      />
-      <OptionPicker
-        label="Competition"
-        options={["League", "Cup", "Friendly"]}
-        value={competition}
-        setValue={setCompetition}
-      />
+        <OptionPicker
+          label="Role"
+          options={["Referee", "Assistant referee"]}
+          value={role}
+          setValue={setRole}
+        />
+        <OptionPicker
+          label="Age category"
+          options={["Senior", "Junior"]}
+          value={ageCategory}
+          setValue={setAgeCategory}
+        />
+        <OptionPicker
+          label="Competition"
+          options={["League", "Cup", "Friendly"]}
+          value={competition}
+          setValue={setCompetition}
+        />
 
-      {status === "Finished" ? (
-        <>
-          <div className={classes.matchSummary}>
-            <h4 className={classes.section}>Match summary</h4>
+        {status === "Finished" ? (
+          <>
+            <div className={classes.matchSummary}>
+              <h4 className={classes.section}>Match summary</h4>
 
-            <div className={classes.teams}>
-              <Input
-                name="Home score"
-                type="number"
-                label="Home score"
-                labelAlign="right"
-                placeholder="Enter team score"
-                value={homeTeamScore}
-                setValue={setHomeTeamScore}
-                error={homeTeamScoreError}
+              <div className={classes.teams}>
+                <Input
+                  name="Home score"
+                  type="number"
+                  label="Home score"
+                  labelAlign="right"
+                  placeholder="Enter team score"
+                  value={homeTeamScore}
+                  setValue={setHomeTeamScore}
+                  error={homeTeamScoreError}
+                />
+                <p> vs </p>
+                <Input
+                  name="Away score"
+                  type="number"
+                  label="Away score"
+                  placeholder="Enter team score"
+                  value={awayTeamScore}
+                  setValue={setAwayTeamScore}
+                  error={awayTeamScoreError}
+                />
+              </div>
+
+              {role === "Referee" && (
+                <>
+                  <CardsPicker
+                    type="yellow-card"
+                    label="Yellow cards"
+                    value={yellowCards}
+                    setValue={setYellowCards}
+                  />
+                  <CardsPicker
+                    type="red-card"
+                    label="Red cards"
+                    value={redCards}
+                    setValue={setRedCards}
+                  />
+                </>
+              )}
+            </div>
+            <div className={classes.performance}>
+              <h4 className={classes.section}>Performance</h4>
+              <StarRatingPicker
+                label="Overall"
+                value={overall}
+                setValue={setOverall}
               />
-              <p> vs </p>
+
               <Input
-                name="Away score"
+                name="Distance"
                 type="number"
-                label="Away score"
-                placeholder="Enter team score"
-                value={awayTeamScore}
-                setValue={setAwayTeamScore}
-                error={awayTeamScoreError}
+                label="Distance covered in km"
+                placeholder="Enter distance covered"
+                value={distanceCovered}
+                setValue={setDistanceCovered}
+                error={distanceCoveredError}
+              />
+
+              <Textarea
+                label="Describe your performance"
+                value={description}
+                setValue={setDescription}
               />
             </div>
+          </>
+        ) : (
+          <h4 className={classes.section}>
+            Match summary and performance will be avaiable when match is marked
+            as finished
+          </h4>
+        )}
 
-            {role === "Referee" && (
-              <>
-                <CardsPicker
-                  type="yellow-card"
-                  label="Yellow cards"
-                  value={yellowCards}
-                  setValue={setYellowCards}
-                />
-                <CardsPicker
-                  type="red-card"
-                  label="Red cards"
-                  value={redCards}
-                  setValue={setRedCards}
-                />
-              </>
-            )}
-          </div>
-          <div className={classes.performance}>
-            <h4 className={classes.section}>Performance</h4>
-            <StarRatingPicker
-              label="Overall"
-              value={overall}
-              setValue={setOverall}
-            />
-
-            <Input
-              name="Distance"
-              type="number"
-              label="Distance covered in km"
-              placeholder="Enter distance covered"
-              value={distanceCovered}
-              setValue={setDistanceCovered}
-              error={distanceCoveredError}
-            />
-
-            <Textarea
-              label="Describe your performance"
-              value={description}
-              setValue={setDescription}
-            />
-          </div>
-        </>
-      ) : (
-        <h4 className={classes.section}>
-          Match summary and performance will be avaiable when match is marked as
-          finished
-        </h4>
-      )}
-
-      <button type="submit" className={classes.submitButton}>
-        Add match
-      </button>
-    </form>
+        <button type="submit" className={classes.submitButton}>
+          Add match
+        </button>
+      </form>
+    </AuthProvider>
   );
 }

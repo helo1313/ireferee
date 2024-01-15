@@ -6,6 +6,7 @@ import {
   MATCHES_ROUTE,
   STATS_ROUTE,
 } from "@/utils/constants/routes";
+import AuthProvider from "@/components/auth/authProvider";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -21,20 +22,22 @@ export default function Dashboard() {
   };
 
   return (
-    <div className={classes.dashboard}>
-      <h2>Welcome back!</h2>
-      <p>What would you like to do?</p>
-      <div className={classes.actions}>
-        <Button styleType="primary" onClick={onCreateNewMatchClicked}>
-          Create new matches
-        </Button>
-        <Button styleType="primary" onClick={onViewMyMatchesClicked}>
-          View my matches
-        </Button>
-        <Button styleType="primary" onClick={onViewMyStatsClicked}>
-          View my stats
-        </Button>
+    <AuthProvider>
+      <div className={classes.dashboard}>
+        <h2>Welcome back!</h2>
+        <p>What would you like to do?</p>
+        <div className={classes.actions}>
+          <Button styleType="primary" onClick={onCreateNewMatchClicked}>
+            Create new matches
+          </Button>
+          <Button styleType="primary" onClick={onViewMyMatchesClicked}>
+            View my matches
+          </Button>
+          <Button styleType="primary" onClick={onViewMyStatsClicked}>
+            View my stats
+          </Button>
+        </div>
       </div>
-    </div>
+    </AuthProvider>
   );
 }
